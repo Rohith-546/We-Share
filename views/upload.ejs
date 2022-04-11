@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>We Share</title>
+    <link rel="icon" href="https://lh3.googleusercontent.com/KJZtKZFjh-kIQ9PAbM69LhpYrZd7YBJXT72IXsr277BGmncmDG98s07bqNAAeT7AmnxEhg=s31" type="image/icon type">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/350d7bac7e.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://unpkg.com/filepond/dist/filepond.css"
+      rel="stylesheet"
+    />
+    <link href="https://unpkg.com/filepond-plugin-pdf-preview/dist/filepond-plugin-pdf-preview.min.css" rel="stylesheet">
+    <style>
+      .custom-file-label {
+        background-color: #0d6efd;
+        width: 100px;
+        text-align: center;
+        color: white;
+      }
+      body{
+          background-color: #012F4F;
+      }
+      .nb1{
+        background-color: #012F4F;
+      }
+
+      .tlogo{
+          object-fit: cover;
+          border-radius: 50%;
+          margin-left: 40px;
+          margin-top: 8px;
+      }
+      .navbar-brand{
+          font-size: 30px;
+          font-weight: bold;
+          color: #fff;
+      }
+      .nav-item{
+          text-align: center;
+          font-size: 25px;
+      }
+      .pt{
+        text-align: center;
+      }
+      .sbd{
+          margin-bottom: 30px;
+          margin-top: 20px;
+      }
+       .ubi{
+        height: 30px;
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <%- include('partials/navbar') %>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 m-auto">
+          <h1 class="text-center display-4 my-4" style="color:#BAE4FE;" >Upload Files</h1>
+          <form action="/upload/<%= bys %>/<%= my_subject %>" method="post">
+            <div class="pt">
+              <div class="custom-file mb-3 ">
+                <input
+                  required
+                  type="file"
+                  name="file"
+                  id="file"
+                  class="custom-file-input filepond"
+                />
+              </div>
+              <div class="sbd">
+                <button type="submit" class="btn btn-success btn-block"><img src="https://img.icons8.com/ios/50/000000/upload-2.png" class="ubi"/>Upload</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+   <%- include('partials/footer') %> 
+
+    <script src="https://unpkg.com/filepond-plugin-pdf-preview/dist/filepond-plugin-pdf-preview.min.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        FilePond.registerPlugin(
+          FilePondPluginPdfPreview,
+          FilePondPluginFileEncode
+        );
+        FilePond.setOptions({
+          allowPdfPreview: true,
+          pdfPreviewWidth: 320,
+          pdfComponentExtraParams: "toolbar=0&navpanes=0&scrollbar=0&view=fitH",
+        });
+        FilePond.parse(document.body);
+      });
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

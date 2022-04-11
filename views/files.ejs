@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>We Share</title>
+    <link rel="icon" href="https://lh3.googleusercontent.com/KJZtKZFjh-kIQ9PAbM69LhpYrZd7YBJXT72IXsr277BGmncmDG98s07bqNAAeT7AmnxEhg=s31" type="image/icon type">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/350d7bac7e.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+        .container{
+            padding-top: 55px;
+            padding-bottom: 15px;
+            text-align: center;
+            position: relative;
+        }
+        .frr{
+          position: absolute;
+          top:50%;
+          left:50%;
+          transform: translate(-50%,-50%);
+        }
+        body {
+          background-color: #012F4F;
+        }
+
+        .nb1{
+        background-color: #012F4F;
+        }
+
+        .tlogo{
+            object-fit: cover;
+            border-radius: 50%;
+            margin-left: 40px;
+            margin-top: 8px;
+        }
+        .navbar-brand{
+            font-size: 30px;
+            font-weight: bold;
+            color: #fff;
+        }
+        .nav-item{
+            text-align: center;
+            font-size: 25px;
+        }
+        .lob{
+            text-align: left;
+        }
+        .btn{
+            margin-left: 15px;
+        }
+        .mk{
+        padding-left: 40px;
+      }
+      .card-body{
+        border-radius: 10px;
+        padding-left: 20px;
+         background-color: #BAE4FE;
+      }
+      .btnf{
+        color: rgb(255, 255, 255);
+        margin-right: 20px;
+        margin-left: 20px;
+      }
+      .b-do{
+        margin-top: 15px;
+        margin-right: 15px;
+      }
+      .b-d{
+        margin-top: 15px;
+        margin-left: 10px;
+        background-color: black;
+        border-color: black;
+      }
+      .b-d:hover{
+        background-color:#434443;
+        border-color: #434443;
+      }
+      .ubi{
+        height: 30px;
+        margin-right: 10px;
+      }
+      </style>
+  </head>
+  <body>
+
+    <%- include('partials/navbar') %>
+
+    <% if(islogin===true){ %>
+    <div class="container">
+        <div class="row frr">
+            <a class="btn btn-sm btn-success" href="/home/<%= bys %>/<%= subject %>/upload" role="button"><img src="https://img.icons8.com/ios/50/000000/upload-2.png" class="ubi"/>Upload File</a>
+        </div>
+    </div>
+    <% } %>
+    
+    <% if(file.length>0){ %>
+      <div class="row m-5">
+      <% file.forEach(function(f){ %>
+      <div class=" mk col-6 col-sm-6 pt-3 pl-3 col-lg-3 col-md-4">
+        <div class="card" style="width: 100%">
+          <!-- <img src="<%= f.file_url %>" class="card-img-top" alt="..." /> -->
+           <embed src='data:<%= f.filetype %>;base64,<%= f.rf %>' width="100%" height="200px" class="card-img-top" >
+          <div class="card-body" style="text-align: center;">
+            <h5 class="card-title pb-2"><%= f.filename %> (<%= f.f_size.toFixed(2) %>kb)</h5>
+            <a style="background-color: #012F4F;" href='data:<%= f.filetype %>;base64,<%= f.rf %>' class="btn b-do btn-primary btn-sm" download=<%= f.filename %>>Download</a>
+            <% if(islogin===true){ %>
+              <a href="/delete/<%= bys %>/<%= subject %>/<%= f.filename %>" class="btn b-d btn-primary btn-sm">Delete</a>
+            <% } %> 
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+    <% } else{%>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-12 col-sm-12 col-lg-12">
+                <h1 style="text-align:center;color: #BAE4FE;">No Files added yet.</h1>
+            </div>
+        </div>
+    </div>
+    <% } %>
+
+    <%- include('partials/footer') %>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

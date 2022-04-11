@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>We Share</title>
+    <link rel="icon" href="https://lh3.googleusercontent.com/KJZtKZFjh-kIQ9PAbM69LhpYrZd7YBJXT72IXsr277BGmncmDG98s07bqNAAeT7AmnxEhg=s31" type="image/icon type">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/350d7bac7e.js" crossorigin="anonymous"></script>
+    <style>
+      body {
+        background-color: #012F4F;
+      }
+      .nb1 {
+        background-color: #012F4F;
+      }
+
+
+      .tlogo {
+        object-fit: cover;
+        border-radius: 50%;
+        margin-left: 40px;
+        margin-top: 8px;
+      }
+
+      .navbar-brand {
+        font-size: 30px;
+        font-weight: bold;
+        color: #fff;
+      }
+
+      .nav-item {
+        text-align: center;
+        font-size: 25px;
+      }
+      h3{
+        width: 35%;
+      }
+      input{
+        display: inline-block;
+      }
+      .mk{
+        padding-left: 40px;
+      }
+      .card-body{
+        border-radius: 10px;
+        padding-left: 20px;
+        letter-spacing: 1.2px;
+      }
+      .btnf{
+        color: rgb(255, 255, 255);
+        margin-right: 20px;
+        margin-left: 20px;
+      }
+      .b-d{
+        margin-left: 20px;
+        background-color: rgb(45, 44, 44);
+        border-color: rgb(0, 0, 0);
+        color: rgb(255, 255, 255);
+      }
+      .b-f{
+        background-color: #012F4F;
+        border-color: #012F4F;
+        color: white;
+      }
+      .b-f:hover{
+         background-color:#079EF0;
+        border-color: #079EF0;
+        color: white;
+      }
+      .b-d:hover{
+        background-color:#434443;
+        border-color: #434443;
+      }
+      #subject{
+        width: 100%;
+      }
+      .fr{
+        width: 50%; 
+        text-align: center;
+        border-radius: 50px;
+      }
+      form{
+        margin-left:28%;
+        text-align: center;
+      }
+      .frr{
+        padding-top: 5%;
+        text-align: left;
+      }
+      #subject, .btnf, p{
+        margin-left: 0;
+      }
+      #subject{
+        width: 60%;
+      }
+      .card-body{
+        background-color: #BAE4FE;
+      }
+      .asi{
+        background-color: white;
+        border-radius: 50px;
+        margin-right: 20px;
+        margin-bottom: 3px;
+      }
+      p{
+        font-size: 24px;
+        font-weight: 500;
+        margin-bottom: 0;
+      }
+      .card-title{
+        color: #0e0d0d;
+      }
+      .adfh{
+        width: 50%;
+        margin:10px 10px;
+        text-align: center;
+        font-size: 18px;
+        height: 46px;
+        margin-top: 20px;
+      }
+      .adfi{
+        width: 40%;
+        margin:10px 10px;
+        border-radius: 20px;
+        border: 1px solid #012F4F;
+        background-color: #ffffff;
+        height: 48px;
+        margin-top: 20px;
+      }
+      .bysc{
+        color: #000;
+        text-align:left;
+      }
+      @media only screen and (max-width: 730px) {
+        p{
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 0;
+      }
+      .adfh{
+        width: 90%;
+        font-size: 25px;
+      }
+      .adfi{
+        width: 90%;
+        margin:10px 10px;
+      }
+      .fr{
+        width: 80%; 
+      }
+      form{
+        margin-left: 8%;
+        text-align: center;
+      }
+      }
+      @media only screen and (min-width: 730px) and (max-width: 1024px){ 
+        .adfh{
+          width: 90%;
+          font-size: 25px;
+        }
+        .adfi{
+          width: 90%;
+        }
+        form{
+        margin-left: 15%;
+        text-align: center;
+      }
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('partials/navbar') %>
+    <% if(islogin===true){ %>
+    <form action="/add-subject/<%= bys %>" method="post">
+      <div class="row m-5 fr container">
+        <button class="adfh btn btn-success " type="submit"> <img src="https://img.icons8.com/material-outlined/24/000000/add.png" class="asi"/>Add Subject</button>
+        <input type="text" name="subjectName" class="adfi" placeholder="Subject" required>
+      </div>
+    </form>
+    <% } %> 
+     <% if(subjectName.length>0){ %>
+    <div class="row m-5  gg">
+      <% subjectName.forEach(function(sub){ %>
+      <div class=" mk col-sm-6 pt-3 pl-3 col-lg-3 col-md-4">
+        <div class="card" style="width: 100%">
+          <div class="card-body" style="text-align: center;">
+            <h5 class="card-title pb-2" style="font-size:25px"> <%= bys.toUpperCase() %></h5>
+            <h5 class="card-title pb-2" style="font-size:25px"><span class="bysc">Subject: </span> <%= sub %></h5>
+            <a href="/home/<%= bys %>/<%= sub %>/files" class="btn b-f btn-light btn-sm">Files</a>
+            <% if(islogin===true){ %>
+              <a href="/delete/<%= bys %>/<%= sub %>" class="btn b-d btn-primary btn-sm">Delete</a>
+            <% } %> 
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+    <% } else {%>
+      <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-12 col-sm-12 col-lg-12">
+                <h1 style="text-align:center;color: #BAE4FE;">No Subjects added yet.</h1>
+            </div>
+        </div>
+    </div>
+    <% } %>
+    <%- include('partials/footer') %>
+
+    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
