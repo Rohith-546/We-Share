@@ -239,7 +239,7 @@ app.post("/add-subject/:bys", (req, res) => {
 
 app.post('/login', (req, res) => {
     const username = req.body.username;
-    const password = req.body.password+ process.env.SECRET_KEY;
+    const password = req.body.password+ "IT_IS_SAFE";
 
     User.findOne({ username: username, password: md5(password) }, (err, foundUser) => {
         if (err) {
