@@ -240,7 +240,7 @@ app.post("/add-subject/:bys", (req, res) => {
 app.post('/login', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    User.findOne({ username: username, password: md5(password + process.env.H_KEY) }, (err, foundUser) => {
+    User.findOne({ username: username, password: md5(password + "IT_IS_SAFE") }, (err, foundUser) => {
         if (err) {
             console.log(err);
         } else {
