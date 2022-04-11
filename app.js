@@ -14,7 +14,7 @@ app.use(express.static(__dirname + '/public'));
 
 const Schema = mongoose.Schema;
 
-const uri = process.env.M_L;
+const uri = "mongodb+srv://rohith_546:183561234@cluster0.qdrkw.mongodb.net/WSDB";
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const mimetypes = ["text/plain","image/jpeg", "image/png", "image/jpg", "application/pdf", "application/msword", "application/vnd.ms-powerpoint","application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/vnd.openxmlformats-officedocument.wordprocessingml.document",];
