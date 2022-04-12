@@ -48,6 +48,9 @@
               required
             />
           </div>
+          <% if(islogin===false){ %>
+          <p style="color:rgb(204, 31, 31)"><%= error %></p>
+          <% } %>
           <button class="btn btn-light btn-lg" type="submit">Login</button>
         </div>
       </div>

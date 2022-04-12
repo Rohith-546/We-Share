@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(bodyParser({ limit: '50mb' }));
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(__dirname + '/public'));
+app.use(express.static("public"));
 
 const Schema = mongoose.Schema;
 
@@ -18,6 +18,7 @@ const uri = "mongodb+srv://rohith_546:183561234@cluster0.qdrkw.mongodb.net/WSDB"
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const mimetypes = ["text/plain","image/jpeg", "image/png", "image/jpg", "application/pdf", "application/msword", "application/vnd.ms-powerpoint","application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/vnd.openxmlformats-officedocument.wordprocessingml.document",];
+
 
 var islogin = false;
 
@@ -68,7 +69,8 @@ app.get('/login', (req, res) => {
         res.redirect('/home');
     } else{
         res.render("login",{
-            islogin: islogin
+            islogin: islogin,
+            error: ""
         });
     }
 });
@@ -241,7 +243,7 @@ app.post('/login', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    User.findOne({ username: username, password: md5(password + "IT_IS_SAFE") }, (err, foundUser) => {
+    User.findOne({ username: username, password: md5(password+"IT_IS_SAFE") }, (err, foundUser) => {
         if (err) {
             console.log(err);
         } else {
@@ -249,11 +251,13 @@ app.post('/login', (req, res) => {
                 islogin = true;
                 res.redirect("/home");
             } else {
-                res.redirect("/login");
+                res.render("login", {
+                    islogin: islogin,
+                    error: "*Invalid username or password"
+                });
             }
         }
     });
-
 });
 
 app.post("/home", (req, res) => {
