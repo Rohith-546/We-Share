@@ -15,13 +15,13 @@
                 <li class="nav-item mx-2">
                   <a style="color: #BAE4FE;" class="nav-link active" href="#contact">Contact</a>
                 </li>
-                <% if(islogin===true){ %>
+                <% if(islogin===true || studentlogin===true){ %>
                 <li class="nav-item mx-2">
                   <a style="color: #BAE4FE;" class="nav-link active" href="/logout">Logout</a>
                 </li>
                 <% } else{%>
                 <li class="nav-item mx-2">
-                  <a style="color: #BAE4FE;" class="nav-link active" href="/login">Login</a>
+                  <a style="color: #BAE4FE;" class="nav-link active" href="/">Login</a>
                 </li>
                 <% } %>
               </ul>

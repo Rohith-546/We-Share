@@ -21,6 +21,7 @@ const mimetypes = ["text/plain","image/jpeg", "image/png", "image/jpg", "applica
 
 
 var islogin = false;
+var studentlogin = false;
 
 const userSchema = {
     userName: String,
@@ -28,6 +29,13 @@ const userSchema = {
 };
 
 const User = mongoose.model("User", userSchema);
+
+const studentSchema = new Schema({
+    roll : String,
+    password : String
+});
+
+const Student = mongoose.model("Student", studentSchema);
 
 const subjectSchema = {
     bysn: String,
@@ -54,29 +62,34 @@ const Upload = mongoose.model("Upload", fileSchema);
 
 app.get('/', (req, res) => {
     res.render("index",{
-        islogin: islogin
+        islogin: islogin,
+        studentlogin: studentlogin
     });
 });
 
 app.get('/home', (req, res) => {
     res.render("home", {
-        islogin: islogin
+        islogin: islogin,
+        studentlogin: studentlogin
     });
 });
 
-app.get('/login', (req, res) => {
-    if(islogin===true){
+app.get('/login/:fos', (req, res) => {
+    if(islogin===true || studentlogin===true){
         res.redirect('/home');
     } else{
         res.render("login",{
             islogin: islogin,
-            error: ""
+            error: "",
+            fos: req.params.fos,
+            studentlogin: studentlogin
         });
     }
 });
 
 app.get("/logout", (req, res) => {
     islogin = false;
+    studentlogin = false;
     res.redirect("/");
 });
 
@@ -89,7 +102,8 @@ app.get("/home/:bys", (req, res) => {
             res.render("subject", {
                 islogin: islogin,
                 bys: bys,
-                subjectName: found.subjectName
+                subjectName: found.subjectName,
+                studentlogin: studentlogin
             });
         }
     });
@@ -151,14 +165,16 @@ app.get("/home/:bys/:subject/files", (req, res) => {
                     islogin: islogin,
                     bys: bys,
                     subject: my_subject,
-                    file: found.file
+                    file: found.file,
+                    studentlogin: studentlogin
                 });
             } else {
                 res.render("files", {
                     islogin: islogin,
                     bys: bys,
                     subject: my_subject,
-                    file: []
+                    file: [],
+                    studentlogin: studentlogin
                 });
             }
         }
@@ -171,7 +187,8 @@ app.get("/home/:bys/:subject/upload", (req, res) => {
     res.render("upload", {
         islogin: islogin,
         bys: bys,
-        my_subject: my_subject
+        my_subject: my_subject,
+        studentlogin: studentlogin
     });
 });
 
@@ -239,25 +256,47 @@ app.post("/add-subject/:bys", (req, res) => {
 });
 
 
-app.post('/login', (req, res) => {
-    const username = req.body.username;
+app.post('/login/:fos', (req, res) => {
+    const username = req.body.username.toLowerCase();
     const password = req.body.password;
-
-    User.findOne({ username: username, password: md5(password+process.env.SECRET_KEY) }, (err, foundUser) => {
-        if (err) {
-            console.log(err);
-        } else {
-            if (foundUser) {
-                islogin = true;
-                res.redirect("/home");
+    const fos = req.params.fos;
+    if(fos==="faculty"){
+        User.findOne({ username: username, password: md5(password+process.env.SECRET_KEY) }, (err, foundUser) => {
+            if (err) {
+                console.log(err);
             } else {
-                res.render("login", {
-                    islogin: islogin,
-                    error: "*Invalid username or password"
-                });
+                if (foundUser) {
+                    islogin = true;
+                    res.redirect("/home");
+                } else {
+                    res.render("login", {
+                        islogin: islogin,
+                        fos:fos,
+                        error: "*Invalid Username or Password",
+                        studentlogin: studentlogin
+                    });
+                }
             }
-        }
-    });
+        });
+    } else if(fos==="student"){
+        Student.findOne({ roll: username, password: password }, (err, foundUser) => {
+            if (err) {
+                console.log(err);
+            } else {
+                if (foundUser) {
+                    studentlogin = true;
+                    res.redirect("/home");
+                } else {
+                    res.render("login", {
+                        islogin: islogin,
+                        fos: fos,
+                        error: "*Invalid Roll Number or Password",
+                        studentlogin: studentlogin
+                    });
+                }
+            }
+        });
+    }
 });
 
 app.post("/home", (req, res) => {
