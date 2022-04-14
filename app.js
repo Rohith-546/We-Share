@@ -14,7 +14,7 @@ app.use(express.static("public"));
 
 const Schema = mongoose.Schema;
 
-const uri = process.env.URL;
+const uri = "mongodb+srv://rohith_546:183561234@cluster0.qdrkw.mongodb.net/WSDB";
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const mimetypes = ["text/plain","image/jpeg", "image/png", "image/jpg", "application/pdf", "application/msword", "application/vnd.ms-powerpoint","application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/vnd.openxmlformats-officedocument.wordprocessingml.document",];
@@ -261,7 +261,7 @@ app.post('/login/:fos', (req, res) => {
     const password = req.body.password;
     const fos = req.params.fos;
     if(fos==="faculty"){
-        User.findOne({ username: username, password: md5(password+process.env.SECRET_KEY) }, (err, foundUser) => {
+        User.findOne({ username: username, password: md5(password +"IT_IS_SAFE") }, (err, foundUser) => {
             if (err) {
                 console.log(err);
             } else {
