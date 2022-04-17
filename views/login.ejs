@@ -144,15 +144,11 @@ input{
   <body>
 
     <%- include('partials/navbar') %>
-    <form action="/login/<%= fos %>" method="POST">
+    <form action="/login" method="POST">
       <div class="wrapper">
         <h2 style="text-align: center; color: #090c13;">We Share</h2>
         <div class="logo"><img src="/images/logo.jpg" alt="" /></div>
-        <% if(fos==="faculty") { %>
         <div class="text-center mt-4 name">For Faculty</div>
-        <% } else { %>
-        <div class="text-center mt-4 name">For Student</div>
-        <% } %>
         <div class="p-3 mt-3">
           <div class="form-field d-flex align-items-center">
             <span class="fas fa-user"></span>
@@ -160,11 +156,7 @@ input{
               type="text"
               name="username"
               id="userName"
-              <% if(fos==="faculty") { %>
               placeholder="Username"
-              <% } else { %>
-              placeholder="Roll Number"
-              <% } %>
               required
             />
           </div>
